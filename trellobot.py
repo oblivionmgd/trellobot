@@ -16,6 +16,8 @@ dc_client = discord.Client()
 TOKEN = 'NjE2MTQwMzAwMDU3OTY4NjUx.XWZufQ.rVrST3vHScWYjmokVDkWn050kpE'
 
 #trello
+todo_cards = None
+
 board_list = tr_client.list_boards()
 for board in board_list:
     if board.name == "NewYearConf":
