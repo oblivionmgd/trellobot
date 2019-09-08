@@ -21,8 +21,10 @@ todo = board.list_lists()[0]
 todo_option = board.list_lists()[1]
 cards_todo = todo.list_cards()
 
-#discord
+#discord help
+command_help = "/todo:Todoリスト内のカードを表示します。\n/shinchoku:進捗を聞かれます。"
 
+#discord actions
 @dc_client.event
 async def on_ready():
     print('Hello Discord! xD')
@@ -32,7 +34,13 @@ async def on_message(message):
     if message.author.bot:
         return
 
+    if message.content == '/help':
+        await message.channel.send(command_help)
+
     if message.content == '/todo':
         await message.channel.send(cards_todo)
+
+    if message.content == '/shinchoku':
+        await message.channel.send('進捗どうですか')
 
 dc_client.run(TOKEN)
