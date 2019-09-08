@@ -16,15 +16,11 @@ dc_client = discord.Client()
 TOKEN = 'NjE2MTQwMzAwMDU3OTY4NjUx.XWZufQ.rVrST3vHScWYjmokVDkWn050kpE'
 
 #trello
-todo_cards = None
 
-board_list = tr_client.list_boards()
-for board in board_list:
-    if board.name == "NewYearConf":
-        for list in board.list_lists():
-            if list.name == "Todo":
-                for card in list.list_cards():
-                    todo_cards += card.name + '\n'
+board_list = tr_client.list_boards()[7]
+todo_list = board_list.list_lists()[0]
+for i in range(7):
+    todo_cards += todo_list.list_cards()[i]
 
 #discord help
 command_help = '/todo:Todoリスト内のカードを表示します。\n/shinchoku:進捗を聞かれます。'
