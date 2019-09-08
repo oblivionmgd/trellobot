@@ -19,10 +19,9 @@ TOKEN = 'NjE2MTQwMzAwMDU3OTY4NjUx.XWZufQ.rVrST3vHScWYjmokVDkWn050kpE'
 board = tr_client.list_boards()[7]
 todo = board.list_lists()[0]
 todo_option = board.list_lists()[1]
-cards_todo = todo.list_cards()
 
 #discord help
-command_help = "/todo:Todoリスト内のカードを表示します。\n/shinchoku:進捗を聞かれます。"
+command_help = '/todo:Todoリスト内のカードを表示します。\n/shinchoku:進捗を聞かれます。'
 
 #discord actions
 @dc_client.event
@@ -38,6 +37,8 @@ async def on_message(message):
         await message.channel.send(command_help)
 
     if message.content == '/todo':
+        for i in range(7):
+            cards_todo += todo.list_cards()[i] + '\n'
         await message.channel.send(cards_todo)
 
     if message.content == '/shinchoku':
