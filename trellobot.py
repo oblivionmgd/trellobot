@@ -19,7 +19,8 @@ TOKEN = 'NjE2MTQwMzAwMDU3OTY4NjUx.XWZufQ.rVrST3vHScWYjmokVDkWn050kpE'
 
 board_list = tr_client.list_boards()[7]
 todo_list = board_list.list_lists()[0]
-for i in range(7):
+todo_cards = todo_list.list_cards()[0]
+for i in range(1,7):
     todo_cards += todo_list.list_cards()[i]
 
 #discord help
