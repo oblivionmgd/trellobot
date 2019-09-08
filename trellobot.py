@@ -18,9 +18,13 @@ TOKEN = 'NjE2MTQwMzAwMDU3OTY4NjUx.XWZufQ.rVrST3vHScWYjmokVDkWn050kpE'
 #trello
 board_list = tr_client.list_boards()[7]
 todo_list = board_list.list_lists()[0]
+doing_list = board_list.list_lists()[2]
 
 #discord help
-command_help = '/todo:Todoリスト内のカードを表示します。\n/shinchoku:進捗を聞かれます。'
+command_help = '/help:これです。\n \
+    /todo:Todoリスト内のカードを表示します。\n \
+    /doing:実行中のタスクを表示します。\n \
+    /shinchoku:進捗を聞かれます。 '
 
 #discord actions
 @dc_client.event
@@ -39,9 +43,12 @@ async def on_message(message):
         for card in todo_list.list_cards():
             await message.channel.send(card.name)
 
-
+    if message.content == '/doing':
+        for card in doing_list.list_cards():
+            await message.channel.send(card.name)
 
     if message.content == '/shinchoku':
         await message.channel.send('進捗どうですか')
+
 
 dc_client.run(TOKEN)
