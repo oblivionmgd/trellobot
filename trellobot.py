@@ -16,10 +16,10 @@ tr_client = TrelloClient(
 dc_client = discord.Client()
 TOKEN = 'NjE2MTQwMzAwMDU3OTY4NjUx.XWZufQ.rVrST3vHScWYjmokVDkWn050kpE'
 
-#trello setup
 board_list = tr_client.list_boards()[7]
 todo_list = board_list.list_lists()[0]
 doing_list = board_list.list_lists()[2]
+
 
 #discord setup
 bot = commands.Bot(command_prefix = '$')
