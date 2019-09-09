@@ -33,10 +33,10 @@ bot.remove_command('help')
 @bot.command()
 async def help(ctx):
     embed = discord.Embed(title = '***Command Infomation***' , description = '使用可能なコマンドの一覧です。' , color = 0xc6ffdd)
-    embed.add_field(name = '*/help*' , value = 'これだよ〜' , inline = False)
-    embed.add_field(name = '*/todo*' , value = '直近のタスクを表示します。' , inline = False)
-    embed.add_field(name = '*/doing*' , value = '実行中のタスクを表示します。' , inline = False)
-    embed.add_field(name = '*/shinchoku*' , value = '進捗を聞かれます。' , inline = False)
+    embed.add_field(name = '*$help*' , value = 'これだよ〜' , inline = False)
+    embed.add_field(name = '*$todo*' , value = '直近のタスクを表示します。' , inline = False)
+    embed.add_field(name = '*$doing*' , value = '実行中のタスクを表示します。' , inline = False)
+    embed.add_field(name = '*$shinchoku*' , value = '進捗を聞かれます。' , inline = False)
 
     await ctx.send(embed = embed)
 
