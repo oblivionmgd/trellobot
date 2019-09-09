@@ -23,6 +23,12 @@ cards_todo = todo.list_cards()
 
 #discord
 
+#discord help
+command_help = '/help:これです。\n\
+    /todo:Todoリスト内のカードを表示します。\n\
+    /doing:実行中のタスクを表示します。\n\
+    /shinchoku:進捗を聞かれます。 '
+
 @dc_client.event
 async def on_ready():
     print('Hello Discord! xD')
