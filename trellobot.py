@@ -19,6 +19,8 @@ TOKEN = 'NjE2MTQwMzAwMDU3OTY4NjUx.XWZufQ.rVrST3vHScWYjmokVDkWn050kpE'
 board_list = tr_client.list_boards()[7]
 todo_list = board_list.list_lists()[0]
 doing_list = board_list.list_lists()[2]
+done_list = board_list.list_lists()[3]
+
 
 
 #discord setup
@@ -33,10 +35,12 @@ bot.remove_command('help')
 @bot.command()
 async def help(ctx):
     embed = discord.Embed(title = '***Command Infomation***' , description = '使用可能なコマンドの一覧です。' , color = 0xc6ffdd)
-    embed.add_field(name = '*$help*' , value = 'これだよ〜' , inline = False)
-    embed.add_field(name = '*$todo*' , value = '直近のタスクを表示します。' , inline = False)
-    embed.add_field(name = '*$doing*' , value = '実行中のタスクを表示します。' , inline = False)
-    embed.add_field(name = '*$shinchoku*' , value = '進捗を聞かれます。' , inline = False)
+    embed.add_field(name = '*/help*' , value = 'これだよ〜' , inline = False)
+    embed.add_field(name = '*/todo*' , value = '直近のタスクを表示します。' , inline = False)
+    embed.add_field(name = '*/doing*' , value = '実行中のタスクを表示します。' , inline = False)
+    embed.add_field(name = '*/shinchoku*' , value = '進捗を聞かれます。' , inline = False)
+    embed.add_field(name = '*/shinchoku*' , value = '進捗を聞かれます。' , inline = False)
+    embed.add_field(name = '*/move 移動したいカード名 移動先のリスト*' , value = 'カードを移動します。Todo→Doneに移動ができません。' , inline = False)
 
     await ctx.send(embed = embed)
 
@@ -58,6 +62,24 @@ async def doing(ctx):
 @bot.command()
 async def shinchoku(ctx):
     await ctx.send('***進 捗 ど う で す か***')
+
+@bot.command()
+async def move(ctx, aug1, aug2):
+    if aug2 == 'Doing':
+        for card in todo_list.list_cards():
+            if card.name == aug1:
+                card.change_list(doing_list.id)
+
+    elif aug2 == 'Done':
+        for card in doing_list.list_cards():
+            if card.name == aug1:
+                card.change_list(done_list.id)
+
+    else:
+        await ctx.send('EROOR:移動先のリストが見つかりませんでした')
+
+    await ctx.send('実行が終了しました。')
+
 
 
 bot.run(TOKEN)
