@@ -24,7 +24,7 @@ done_list = board_list.list_lists()[3]
 
 
 #discord setup
-bot = commands.Bot(command_prefix = '$')
+bot = commands.Bot(command_prefix = '/')
 
 @bot.event
 async def on_ready():
