@@ -39,8 +39,8 @@ async def help(ctx):
     embed.add_field(name = '*/todo*' , value = '直近のタスクを表示します。' , inline = False)
     embed.add_field(name = '*/doing*' , value = '実行中のタスクを表示します。' , inline = False)
     embed.add_field(name = '*/shinchoku*' , value = '進捗を聞かれます。' , inline = False)
-    embed.add_field(name = '*/shinchoku*' , value = '進捗を聞かれます。' , inline = False)
-    embed.add_field(name = '*/move 移動したいカード名 移動先のリスト*' , value = 'カードを移動します。Todo→Doneに移動ができません。' , inline = False)
+    embed.add_field(name = '*/move 移動したいカード名 移動先のリスト*' , value = 'カードを移動します。' , inline = False)
+    embed.add_field(name = '*/comment 対象のカード名 コメント内容*' , value = 'コメントを入力できます。Markdownが使えます。多分。' , inline = False)
 
     await ctx.send(embed = embed)
 
@@ -65,21 +65,50 @@ async def shinchoku(ctx):
 
 @bot.command()
 async def move(ctx, aug1, aug2):
-    if aug2 == 'Doing':
-        for card in todo_list.list_cards():
-            if card.name == aug1:
+    for card in todo_list.list_cards():
+        if card.name == aug1:
+            if aug2 == 'Todo' or aug2 == 'todo':
+                card.change_list(todo_list.id)
+            elif aug2 == 'Doing' or aug2 == 'doing':
                 card.change_list(doing_list.id)
-
-    elif aug2 == 'Done':
-        for card in doing_list.list_cards():
-            if card.name == aug1:
+            elif aug2 == 'Done' or aug2 == 'done':
                 card.change_list(done_list.id)
 
-    else:
-        await ctx.send('EROOR:移動先のリストが見つかりませんでした')
+    for card in doing_list.list_cards():
+        if card.name == aug1:
+            if aug2 == 'Todo' or aug2 == 'todo':
+                card.change_list(todo_list.id)
+            elif aug2 == 'Doing' or aug2 == 'doing':
+                card.change_list(doing_list.id)
+            elif aug2 == 'Done' or aug2 == 'done':
+                card.change_list(done_list.id)
+
+    for card in done_list.list_cards():
+        if card.name == aug1:
+            if aug2 == 'Todo' or aug2 == 'todo':
+                card.change_list(todo_list.id)
+            elif aug2 == 'Doing' or aug2 == 'doing':
+                card.change_list(doing_list.id)
+            elif aug2 == 'Done' or aug2 == 'done':
+                card.change_list(done_list.id)
+
 
     await ctx.send('実行が終了しました。')
 
+@bot.command()
+async def comment(ctx, aug1, aug2):
+    for card in todo_list.list_cards():
+        if card.name == aug1:
+            card.comment(datetime.now().strftime(aug2))
 
+    for card in doing_list.list_cards():
+        if card.name == aug1:
+            card.comment(datetime.now().strftime(aug2))
+    for card in done_list.list_cards():
+        if card.name == aug1:
+            card.comment(datetime.now().strftime(aug2))
+
+
+    await ctx.send('実行が終了しました。')
 
 bot.run(TOKEN)
