@@ -1,6 +1,0 @@
-version: 2.1
-jobs:
-  build:
-    working_directory: ~/trellobot
-    docker:
-      - image: circleci/python3.6.6
