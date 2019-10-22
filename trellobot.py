@@ -8,13 +8,13 @@ from discord.ext import commands
 
 #tokens
 tr_client = TrelloClient(
-    api_key='5253ae83e899b0df3f779d5b6f47dbbf',
-    api_secret='926354b8cf7a1acddac37acb89a4902fa48df51057ab817ab0acf4c2f389d5a0',
-    token='f03236db68a8f95989d04d3a4173f8c3066610e6c885c0724ba98ab2b549eab0',
+    config.tr_api_key,
+    config.tr_api_secret,
+    config.tr_token
 )
 
 dc_client = discord.Client()
-TOKEN = 'NjE2MTQwMzAwMDU3OTY4NjUx.XWZufQ.rVrST3vHScWYjmokVDkWn050kpE'
+config.ds_token
 
 board_list = tr_client.list_boards()[7]
 todo_list = board_list.list_lists()[0]
@@ -36,9 +36,8 @@ bot.remove_command('help')
 async def help(ctx):
     embed = discord.Embed(title = '***Command Infomation***' , description = '使用可能なコマンドの一覧です。' , color = 0xc6ffdd)
     embed.add_field(name = '*/help*' , value = 'これだよ〜' , inline = False)
-    embed.add_field(name = '*/todo*' , value = '直近のタスクを表示します。' , inline = False)
-    embed.add_field(name = '*/doing*' , value = '実行中のタスクを表示します。' , inline = False)
-    embed.add_field(name = '*/shinchoku*' , value = '進捗を聞かれます。' , inline = False)
+    embed.add_field(name = '*/ls 対象のリスト名*' , value = '指定したリスト内のカードを表示します。' , inline = False)
+    embed.add_field(name = '*/shinchoku*' , value = '進捗を聞かれます。メンションが飛びまくるので注意。' , inline = False)
     embed.add_field(name = '*/move 移動したいカード名 移動先のリスト*' , value = 'カードを移動します。' , inline = False)
     embed.add_field(name = '*/comment 対象のカード名 コメント内容*' , value = 'コメントを入力できます。Markdownが使えます。多分。' , inline = False)
 
@@ -46,22 +45,27 @@ async def help(ctx):
 
 
 @bot.command()
-async def todo(ctx):
-    embed = discord.Embed(title = '***Todo List***' , description= '直近のタスクを表示します。着手したら **Doing** に移動してあげてください。\n[詳細を見る](https://trello.com/b/kICogz7C)', color = 0xfc466b)
-    for card in todo_list.list_cards():
-        embed.add_field(name = ':clipboard:' + card.name , value = '\u200b' , inline = True)
+async def ls(ctx,aug1):
+    if aug1 == "todo" or aug1 == "Todo":
+        embed = discord.Embed(title = '***Todo List***' , description= '直近のタスクを表示します。着手したら **Doing** に移動してあげてください。\n[詳細を見る](https://trello.com/b/kICogz7C)', color = 0xfc466b)
+        for card in todo_list.list_cards():
+            embed.add_field(name = ':clipboard:' + card.name , value = '\u200b' , inline = True)
+
+    if aug1 == "doing" or aug1 == "Doing":
+        embed = discord.Embed(title = '***Doing List***' , description = '実行中のタスクを表示します。完了したら **Done** に移動させてあげてください。 \n[詳細を見る](https://trello.com/b/kICogz7C)', color = 0xfc466b)
+        for card in doing_list.list_cards():
+            embed.add_field(name = ':computer:' + card.name , value = '\u200b' , inline = True)
+
+    if aug1 == "done" or aug1 == "Done":
+       embed = discord.Embed(title = '***Doing List***' , description = '実行済みのタスクを表示します。お疲れ様でした!!\n[詳細を見る](https://trello.com/b/kICogz7C)',color = 0x3f5efb)
+    for card in done_list.list_cards():
+        embed.add_field(name = ':check:' + card.name , value = '\u200b' , inline = True)
     await ctx.send(embed = embed)
 
-@bot.command()
-async def doing(ctx):
-    embed = discord.Embed(title = '***Doing List***' , description = '実行中のタスクを表示します。タスクが完了したら **Done** に移動してあげてください。\n[詳細を見る](https://trello.com/b/kICogz7C)',color = 0x3f5efb)
-    for card in doing_list.list_cards():
-        embed.add_field(name = ':computer:' + card.name , value = '\u200b' , inline = True)
-    await ctx.send(embed = embed)
 
 @bot.command()
 async def shinchoku(ctx):
-    await ctx.send('***進 捗 ど う で す か***')
+    await ctx.send('@everyone ***進 捗 ど う で す か***')
 
 @bot.command()
 async def move(ctx, aug1, aug2):
