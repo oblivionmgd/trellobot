@@ -13,7 +13,7 @@ tr_client = TrelloClient(
 )
 
 dc_client = discord.Client()
-config.ds_token
+TOKEN = config.ds_token
 
 board_list = tr_client.list_boards()[7]
 todo_list = board_list.list_lists()[0]
@@ -114,4 +114,4 @@ async def comment(ctx, aug1, aug2):
 
     await ctx.send('実行が終了しました。')
 
-bot.run(ds_token)
+bot.run(TOKEN)
