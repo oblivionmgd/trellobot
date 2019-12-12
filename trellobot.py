@@ -50,15 +50,15 @@ async def ls(ctx,aug1):
         for card in todo_list.list_cards():
             embed.add_field(name = ':clipboard:' + card.name , value = '\u200b' , inline = True)
 
-    if aug1 == "doing" or aug1 == "Doing":
+    elif aug1 == "doing" or aug1 == "Doing":
         embed = discord.Embed(title = '***Doing List***' , description = '実行中のタスクを表示します。完了したら **Done** に移動させてあげてください。 \n[詳細を見る](https://trello.com/b/kICogz7C)', color = 0xfc466b)
         for card in doing_list.list_cards():
             embed.add_field(name = ':computer:' + card.name , value = '\u200b' , inline = True)
 
-    if aug1 == "done" or aug1 == "Done":
+    elif aug1 == "done" or aug1 == "Done":
        embed = discord.Embed(title = '***Doing List***' , description = '実行済みのタスクを表示します。お疲れ様でした!!\n[詳細を見る](https://trello.com/b/kICogz7C)',color = 0x3f5efb)
     for card in done_list.list_cards():
-        embed.add_field(name = ':check:' + card.name , value = '\u200b' , inline = True)
+        embed.add_field(name = ':white_check_mark:' + card.name , value = '\u200b' , inline = True)
     await ctx.send(embed = embed)
 
 
