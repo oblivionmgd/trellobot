@@ -1,5 +1,4 @@
-import sys
-import os
+import sys, os, config
 from datetime import datetime
 from trello import TrelloClient
 import discord
