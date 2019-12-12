@@ -37,7 +37,7 @@ async def help(ctx):
     embed.add_field(name = '*/help*' , value = 'これだよ〜' , inline = False)
     embed.add_field(name = '*/ls 対象のリスト名*' , value = '指定したリスト内のカードを表示します。' , inline = False)
     embed.add_field(name = '*/shinchoku*' , value = '進捗を聞かれます。メンションが飛びまくるので注意。' , inline = False)
-    embed.add_field(name = '*/move 移動したいカード名 移動先のリスト*' , value = 'カードを移動します。' , inline = False)
+    embed.add_field(name = '*/mv 移動したいカード名 移動先のリスト*' , value = 'カードを移動します。' , inline = False)
     embed.add_field(name = '*/comment 対象のカード名 コメント内容*' , value = 'コメントを入力できます。Markdownが使えます。多分。' , inline = False)
 
     await ctx.send(embed = embed)
@@ -67,7 +67,7 @@ async def shinchoku(ctx):
     await ctx.send('@everyone ***進 捗 ど う で す か***')
 
 @bot.command()
-async def move(ctx, aug1, aug2):
+async def mv(ctx, aug1, aug2):
     for card in todo_list.list_cards():
         if card.name == aug1:
             if aug2 == 'Todo' or aug2 == 'todo':
