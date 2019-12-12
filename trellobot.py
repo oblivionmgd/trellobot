@@ -114,4 +114,4 @@ async def comment(ctx, aug1, aug2):
 
     await ctx.send('実行が終了しました。')
 
-bot.run(TOKEN)
+bot.run(ds_token)
